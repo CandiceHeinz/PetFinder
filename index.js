@@ -21,7 +21,12 @@ app.get('/api', (req, res) => {
 // get all pets from the database
 app.get('/api/v1/pets', (req, res) => {
     // send the pets array as a response
-
+try {
+    const allPets = await pets.find({});
+    res.status(200).json(allPets);
+} catch (error) {
+    res.status(500).json({ error: error.message });    
+}
 });
 
 // get pet by owner with query string
